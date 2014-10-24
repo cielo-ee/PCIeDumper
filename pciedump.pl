@@ -25,14 +25,12 @@ foreach my $line (@lines){
 
 #‚±‚±‚©‚çƒ|ƒCƒ“ƒ^‚ð‚½‚Ç‚é‚æ
 print "PCI Extended Capability\n";
-my $next_pointer = hex &get_byte(0x034,\@data);
+my $next_pointer = &get_byte(0x034,\@data);
 while(1){
-		my $capability_id   = &get_byte($next_pointer,\@data);
-		my $next_pinter_str = &get_byte($next_pointer + 1,\@data);
-		print "Capability ID:".$capability_id."h\n";
-		print "next Pointer:".$next_pinter_str."h\n";;
-		$next_pointer = hex $next_pinter_str;
-#		my $hoge = <STDIN>;
+		my $id   = &get_byte($next_pointer,\@data);
+		print sprintf "Offset:%0xh ID:%0xh\n",$next_pointer,$id;
+		$next_pointer = &get_byte($next_pointer+1,\@data);
+#		my $tmp = <STDIN>;
 		last if $next_pointer == 0;
 }
 
@@ -40,12 +38,10 @@ print "PCI express Capability\n";
 $next_pointer = 0x100;
 while(1){
 		my $capability   = &get_dword($next_pointer,\@data);
-		$capability =~ s/ //g; #‹ó”’íœ
-		my $capability_val = hex $capability;
-		my $id = $capability_val & 0x00ff;
-		$next_pointer = $capability_val >> 20;
-		print sprintf "ID:%0x next:%0x\n",$id,$next_pointer;
-		
+		my $id = $capability & 0x00ff;
+		print sprintf "ID:%0xh next:%0xh\n",$id,$next_pointer;
+		$next_pointer = $capability >> 20;
+#		my $tmp = <STDIN>;	
 		last if $next_pointer == 0;
 }
 
@@ -53,19 +49,19 @@ sub get_byte{
 		my ($addr,$root)  = @_;
 		my $upper = $addr >> 4;
 		my $lower = $addr & 0x000f;
-		return $root->[$upper]->[$lower];
+		return hex $root->[$upper]->[$lower];
 }
 
 sub get_word{
 		my ($addr,$root)  = @_;
 		my ($byte0,$byte1) = (&get_byte($addr,$root),&get_byte($addr+1,$root));
-		return sprintf "%s %s",$byte0,$byte1;
+		return $byte0 + ($byte1 << 8) ;
 }
 
 sub get_dword{
 		my ($addr,$root)  = @_;
 		my ($word0,$word1) = (&get_word($addr,$root),&get_word($addr+2,$root));
-		return sprintf "%s %s",$word0,$word1;
+		return $word0 + ($word1 << 16);
 }
 
 
