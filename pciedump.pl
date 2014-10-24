@@ -39,7 +39,7 @@ $next_pointer = 0x100;
 while(1){
 		my $capability   = &get_dword($next_pointer,\@data);
 		my $id = $capability & 0x00ff;
-		print sprintf "ID:%0xh next:%0xh\n",$id,$next_pointer;
+		print sprintf "Offset:%0xh ID:%0xh \n",$id,$next_pointer;
 		$next_pointer = $capability >> 20;
 #		my $tmp = <STDIN>;	
 		last if $next_pointer == 0;
