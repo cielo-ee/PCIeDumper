@@ -19,3 +19,33 @@
     width: 2
     subField: null
     attribute: RO
+0x08:
+    name: Revision_ID
+    width: 1
+    subField: null
+    attribute: RO
+0x07:
+    name: Class_Code
+    width: 3
+    subField: null
+    attribute: RO
+0x0C:
+    name: Cacheline_size
+    width: 1
+    subField: null
+    attribute: RO
+0x0D:
+    name: Latency_Timer
+    width: 1
+    subField: null
+    attribute: RO
+0x0E:
+    name: Header_Type
+    width: 1
+    subField: null
+    attribute: RO
+0x0F:
+    name:BIST
+    width: 1
+    subField: null
+    attribute: RO

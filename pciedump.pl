@@ -67,6 +67,12 @@ sub get_word{
 		return $byte0 + ($byte1 << 8) ;
 }
 
+sub get_3byte{
+		my ($addr,$root)  = @_;
+		my ($byte0,$byte1) = (&get_byte($addr,$root),&get_word($addr+1,$root));
+		return $byte0 + ($byte1 << 8);
+}
+
 sub get_dword{
 		my ($addr,$root)  = @_;
 		my ($word0,$word1) = (&get_word($addr,$root),&get_word($addr+2,$root));
@@ -89,8 +95,10 @@ sub show_register_info{
 		print "\t";
 		
 		print sprintf "%0x",&get_dword(hex $addr,\@data) if($config->{$addr}->{'width'} == 4);
-		print sprintf "%0x",&get_word(hex $addr,\@data)  if($config->{$addr}->{'width'} == 2);
-		print sprintf "%0x",&get_byte(hex $addr,\@data)  if($config->{$addr}->{'width'} == 1);
+		print sprintf "%0x",&get_3byte(hex $addr,\@data) if($config->{$addr}->{'width'} == 3); 
+		print sprintf "%x", &get_word(hex $addr,\@data)  if($config->{$addr}->{'width'} == 2);
+		print sprintf "%x", &get_byte(hex $addr,\@data)  if($config->{$addr}->{'width'} == 1);
+
 		print "h\n";
 }
 
