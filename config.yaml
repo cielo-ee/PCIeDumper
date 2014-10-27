@@ -1,0 +1,21 @@
+---
+0x00:
+    name: Vendor_ID
+    width: 2
+    subField: null
+    attribute: RO
+0x02: 
+    name: Device_ID
+    width: 2
+    subField: null
+    attribute: RO
+0x04:
+    name: command
+    width: 2
+    subField: null
+    attribute: RO
+0x06:
+    name: status
+    width: 2
+    subField: null
+    attribute: RO
