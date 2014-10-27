@@ -45,7 +45,77 @@
     subField: null
     attribute: RO
 0x0F:
-    name:BIST
+    name: BIST
+    width: 1
+    subField: null
+    attribute: RO
+0x10:
+    name: BAR0
+    width: 4
+    subField: null
+    attribute: RO
+0x14:
+    name: BAR1
+    width: 4
+    subField: null
+    attribute: RO
+0x18:
+    name: BAR2
+    width: 4
+    subField: null
+    attribute: RO
+0x1C:
+    name: BAR3
+    width: 4
+    subField: null
+    attribute: RO
+0x20:
+    name: BAR4
+    width: 4
+    subField: null
+    attribute: RO
+0x20:
+    name: BAR5
+    width: 4
+    subField: null
+    attribute: RO
+0x28:
+    name: Cardbus_CIS_Pointer
+    width: 4
+    subField: null
+    attribute: RO
+0x2C:
+    name: Subsystem_Vendor_ID
+    width: 2
+    subField: null
+    attribute: RO
+0x2E:
+    name: Subsystem_ID
+    width: 2
+    subField: null
+    attribute: RO
+0x30:
+    name: Expansion_ROM_Base_Address
+    width: 4
+    subField: null
+    attribute: RO
+0x34:
+    name: Capability_Pointer
+    width: 1
+    subField: null
+    attribute: RO
+0x3C:
+    name: Interrupt_Line
+    width: 1
+    subField: null
+    attribute: RO
+0x3D:
+    name: Interrupt_Pin
+    width: 1
+    subField: null
+    attribute: RO
+0x3E:
+    name: Min_Gnt
     width: 1
     subField: null
     attribute: RO
