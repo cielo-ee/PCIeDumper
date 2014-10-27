@@ -24,7 +24,7 @@ foreach my $line (@lines){
 
 my $config = LoadFile('config.yaml');
 
-foreach my $addr (keys(%$config)){
+foreach my $addr (sort keys(%$config)){
 
 		&show_register_info($addr,$config);
 }
@@ -93,14 +93,26 @@ sub show_register_info{
 		print "\t";
 		print $config->{$addr}->{'attribute'};
 		print "\t";
+
+		my $width = $config->{$addr}->{'width'};
 		
-		print sprintf "%0x",&get_dword(hex $addr,\@data) if($config->{$addr}->{'width'} == 4);
-		print sprintf "%0x",&get_3byte(hex $addr,\@data) if($config->{$addr}->{'width'} == 3); 
-		print sprintf "%x", &get_word(hex $addr,\@data)  if($config->{$addr}->{'width'} == 2);
-		print sprintf "%x", &get_byte(hex $addr,\@data)  if($config->{$addr}->{'width'} == 1);
+		print sprintf "%08x",&get_dword(hex $addr,\@data) if($width == 4);
+		print sprintf "%06x",&get_3byte(hex $addr,\@data) if($width == 3); 
+		print sprintf "%04x", &get_word(hex $addr,\@data)  if($width == 2);
+		print sprintf "%02x", &get_byte(hex $addr,\@data)  if($width == 1);
 
 		print "h\n";
+
+		if($config->{$addr}->{'subField'}){
+				show_binary(&get_byte(hex $addr,\@data),1);
+				print " \n";
+		}
+
 }
 
-
+sub show_binary{
+		my ($byte,$width) = @_;
+		my $len = sprintf "B%d",$width * 8;
+		print unpack($len,pack("C",$byte));
+}
 __END__

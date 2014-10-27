@@ -12,8 +12,18 @@
 0x04:
     name: command
     width: 2
-    subField: null
-    attribute: RO
+    subField:
+        0:
+            name:  IO_Space
+            width: 1
+            default: 0
+            attribute: RW
+        1:
+            name: Memory_Space_Accesses
+            width: 1
+            defaule: 0
+            attribute: RW
+    attribute: null
 0x06:
     name: status
     width: 2
