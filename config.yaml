@@ -23,6 +23,52 @@
             width: 1
             default: 0
             attribute: RW
+        2:
+            name: Bus_Master
+            width: 1
+            default: 0
+            attribute: RW
+        3:
+            name: Special_Cycles
+            width: 1
+            default: 0
+            attribute: RW
+        4:
+            name: emory_write_and_Invalidate_enable
+            width: 1
+            default: 0
+            attribute: RW
+        5:
+            name: GA_Palette_Snoop
+            width: 1
+            default: 0
+            attribute: RW
+        6:
+            name: Parity_Error_Response
+            width: 1
+            default: 0
+            attribute: RW
+        7:
+            name: Reserved
+            width: 1
+        8:
+            name: SERR_N_enable
+            width: 1
+            default: 0
+            attribute: RW
+        9:
+            name: Fast_Back_to_Back_Enable
+            width: 1
+            default: 0
+            attribute: RW
+        10:
+            name: Interrupt_Disable
+            width: 1
+            default: 0
+            attribute: RW
+        11:
+            name: Reserved
+            width: 5
     attribute: null
 0x06:
     name: status
