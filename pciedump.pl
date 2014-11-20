@@ -50,20 +50,23 @@ foreach my $line (@lines){
 
 my $config = LoadFile('config.yaml');
 
+my $fields = (); #Fieldオブジェクトのリファレンスの配列
 foreach my $addr (sort keys(%$config)){
 
-		
-		&show_register_info($addr,$config);
+#		&show_register_info($addr,$config);
+
+		my $value = &get_register_info($addr,$config);
+		my %data = (
+				'addr'  => $addr,
+				'value' => $value,
+				'config'  => $config->{$addr}
+		);
+		my $field_ref = Field->new(%data);
+		push @$fields,$field_ref;
 }
 
+print Dumper $fields;
 
-#データをオブジェクト化して保持
-#my $fields = (); #Fieldオブジェクトのリファレンスの配列
-#foreach my $addr (sort keys(%$config)){
-
-#		my $field = &get_register_info($addr,$config);
-#		
-#}
 
 #ここからポインタを辿る
 print "PCI Extended Capability\n";
