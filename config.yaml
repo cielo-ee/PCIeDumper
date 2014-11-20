@@ -21,7 +21,7 @@
         1:
             name: Memory_Space_Accesses
             width: 1
-            defaule: 0
+            default: 0
             attribute: RW
     attribute: null
 0x06:
