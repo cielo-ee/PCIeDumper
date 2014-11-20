@@ -6,6 +6,32 @@ use warnings;
 use YAML::XS qw/LoadFile/;
 use Data::Dumper;
 
+{
+		package Field;
+
+		sub new{
+				my ($class,%args) = @_;
+				bless +{
+						%args
+				},$class;
+		}
+
+		sub getField{
+				my ($self,$address) = @_;
+		}
+}
+
+{
+		package subField;
+
+		sub new{
+				my ($class,%args) = @_;
+				bless +{
+						%args
+				},$class;
+		}
+}
+
 open my $fh, '<',"sample.txt" or die "$!\n";
 
 my @lines = <$fh>;
@@ -26,11 +52,18 @@ my $config = LoadFile('config.yaml');
 
 foreach my $addr (sort keys(%$config)){
 
+		
 		&show_register_info($addr,$config);
 }
 
 
+#データをオブジェクト化して保持
+#my $fields = (); #Fieldオブジェクトのリファレンスの配列
+#foreach my $addr (sort keys(%$config)){
 
+#		my $field = &get_register_info($addr,$config);
+#		
+#}
 
 #ここからポインタを辿る
 print "PCI Extended Capability\n";
@@ -95,11 +128,12 @@ sub show_register_info{
 		print "\t";
 
 		my $width = $config->{$addr}->{'width'};
+		my $value = &get_register_info($addr,$config);
 		
-		print sprintf "%08x",&get_dword(hex $addr,\@data) if($width == 4);
-		print sprintf "%06x",&get_3byte(hex $addr,\@data) if($width == 3); 
-		print sprintf "%04x", &get_word(hex $addr,\@data)  if($width == 2);
-		print sprintf "%02x", &get_byte(hex $addr,\@data)  if($width == 1);
+		print sprintf "%08x",$value  if($width == 4);
+		print sprintf "%06x",$value  if($width == 3); 
+		print sprintf "%04x",$value  if($width == 2);
+		print sprintf "%02x",$value  if($width == 1);
 
 		print "h\n";
 
@@ -107,6 +141,18 @@ sub show_register_info{
 				show_binary(&get_byte(hex $addr,\@data),1);
 				print " \n";
 		}
+
+}
+
+sub get_register_info{
+		my ($addr,$config) = @_;
+
+		my $width = $config->{$addr}->{'width'};
+		
+		return &get_dword(hex $addr,\@data) if($width == 4);
+		return &get_3byte(hex $addr,\@data) if($width == 3); 
+		return &get_word(hex $addr,\@data)  if($width == 2);
+		return &get_byte(hex $addr,\@data)  if($width == 1);
 
 }
 
