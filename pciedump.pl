@@ -30,6 +30,17 @@ use Data::Dumper;
 						%args
 				},$class;
 		}
+
+		sub getElements{
+				my $self = shift;
+				my $elements = +{
+						'addr'      => $self->{'addr'},
+						'name'      => $self->{'config'}->{'name'},
+						'attribute' => $self->{'config'}->{'attribute'},
+						'value'     => $self->{'value'}
+				};
+				return $elements;
+		}
 }
 
 open my $fh, '<',"sample.txt" or die "$!\n";
@@ -67,6 +78,17 @@ foreach my $addr (sort keys(%$config)){
 
 print Dumper $fields;
 
+
+sub print_header{
+		foreach my $field_i (@$fields){
+				my $elements = $field_i->getFields();
+				&print_field($elements);
+		}
+}
+
+sub print_field{
+		my $elements = shift;
+}
 
 #ここからポインタを辿る
 print "PCI Extended Capability\n";
@@ -164,4 +186,11 @@ sub show_binary{
 		my $len = sprintf "B%d",$width * 8;
 		print unpack($len,pack("C",$byte));
 }
+
 __END__
+#こういう雰囲気のレジスタマップとして出力したい
+#Addr	name	description	ByteWidth	bit	attr	default	bit name	reset	description
+#0x00	Vendor_ID	ベンダID	2	63:0	RO	8086		-	ベンダID
+#0x02	Device_ID	デバイスID	2	63:0	RO	0000		-	???
+#0x04	Command	コマンド	2	0	RO	0	I/O Space		
+#				1	RO	0	Memory Space		
