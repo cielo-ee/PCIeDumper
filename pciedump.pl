@@ -52,7 +52,7 @@ close $fh or die "$!\n";
 my @data;
 
 foreach my $line (@lines){
-		$line =~ s/\x0D?\x0A$//g; #‰üsíœ
+		$line =~ s/\x0D?\x0A$//g; #æ”¹è¡Œå‰Šé™¤
 		my @byte = split / /,$line;  
 		my $offset = shift @byte;
 		push @data,\@byte;
@@ -61,7 +61,7 @@ foreach my $line (@lines){
 
 my $config = LoadFile('config.yaml');
 
-my $fields = []; #FieldƒIƒuƒWƒFƒNƒg‚ÌƒŠƒtƒ@ƒŒƒ“ƒX‚Ì”z—ñ‚Ö‚ÌƒŠƒtƒ@ƒŒƒ“ƒX
+my $fields = []; #Fieldã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã®é…åˆ—ã¸ã®ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹
 foreach my $addr (sort keys(%$config)){
 
 #		&show_register_info($addr,$config);
@@ -90,7 +90,7 @@ sub print_field{
 		my $elements = shift;
 }
 
-#‚±‚±‚©‚çƒ|ƒCƒ“ƒ^‚ğ’H‚é
+#ã“ã“ã‹ã‚‰ãƒã‚¤ãƒ³ã‚¿ã‚’è¾¿ã‚‹
 print "PCI Extended Capability\n";
 my $next_pointer = &get_byte(0x034,\@data);
 while(1){
@@ -188,9 +188,9 @@ sub show_binary{
 }
 
 __END__
-#‚±‚¤‚¢‚¤•µˆÍ‹C‚ÌƒŒƒWƒXƒ^ƒ}ƒbƒv‚Æ‚µ‚Äo—Í‚µ‚½‚¢
+#ã“ã†ã„ã†é›°å›²æ°—ã®ãƒ¬ã‚¸ã‚¹ã‚¿ãƒãƒƒãƒ—ã¨ã—ã¦å‡ºåŠ›ã—ãŸã„
 #Addr	name	description	ByteWidth	bit	attr	default	bit name	reset	description
-#0x00	Vendor_ID	ƒxƒ“ƒ_ID	2	63:0	RO	8086		-	ƒxƒ“ƒ_ID
-#0x02	Device_ID	ƒfƒoƒCƒXID	2	63:0	RO	0000		-	???
-#0x04	Command	ƒRƒ}ƒ“ƒh	2	0	RO	0	I/O Space		
+#0x00	Vendor_ID	ãƒ™ãƒ³ãƒ€ID	2	63:0	RO	8086		-	ãƒ™ãƒ³ãƒ€ID
+#0x02	Device_ID	ãƒ‡ãƒã‚¤ã‚¹ID	2	63:0	RO	0000		-	???
+#0x04	Command	ã‚³ãƒãƒ³ãƒ‰	2	0	RO	0	I/O Space		
 #				1	RO	0	Memory Space		
