@@ -64,9 +64,9 @@ my $config = LoadFile('config.yaml');
 my $fields = []; #Fieldオブジェクトのリファレンスの配列へのリファレンス
 foreach my $addr (sort keys(%$config)){
 
-#		&show_register_info($addr,$config);
+#		show_register_info($addr,$config);
 
-		my $value = &get_register_info($addr,$config);
+		my $value = get_register_info($addr,$config);
 		my %data = (
 				'addr'  => $addr,
 				'value' => $value,
@@ -82,7 +82,7 @@ print Dumper $fields;
 sub print_header{
 		foreach my $field_i (@$fields){
 				my $elements = $field_i->getFields();
-				&print_field($elements);
+				print_field($elements);
 		}
 }
 
@@ -92,11 +92,11 @@ sub print_field{
 
 #ここからポインタを辿る
 print "PCI Extended Capability\n";
-my $next_pointer = &get_byte(0x034,\@data);
+my $next_pointer = get_byte(0x034,\@data);
 while($next_pointer){
-		my $id   = &get_byte($next_pointer,\@data);
+		my $id   = get_byte($next_pointer,\@data);
 		printf "Offset:%0xh ID:%0xh\n",$next_pointer,$id;
-		$next_pointer = &get_byte($next_pointer+1,\@data);
+		$next_pointer = get_byte($next_pointer+1,\@data);
 #		my $tmp = <STDIN>;
 #		last if $next_pointer == 0;
 }
@@ -104,7 +104,7 @@ while($next_pointer){
 print "PCI express Capability\n";
 $next_pointer = 0x100;
 while($next_pointer){
-		my $capability   = &get_dword($next_pointer,\@data);
+		my $capability   = get_dword($next_pointer,\@data);
 		my $id = $capability & 0x00ff;
 		printf "Offset:%0xh ID:%0xh \n",$id,$next_pointer;
 		$next_pointer = $capability >> 20;
@@ -121,25 +121,25 @@ sub get_byte{
 
 sub get_word{
 		my ($addr,$root)  = @_;
-		my ($byte0,$byte1) = (&get_byte($addr,$root),&get_byte($addr+1,$root));
+		my ($byte0,$byte1) = (get_byte($addr,$root),get_byte($addr+1,$root));
 		return $byte0 + ($byte1 << 8) ;
 }
 
 sub get_3byte{
 		my ($addr,$root)  = @_;
-		my ($byte0,$byte1) = (&get_byte($addr,$root),&get_word($addr+1,$root));
+		my ($byte0,$byte1) = (get_byte($addr,$root),get_word($addr+1,$root));
 		return $byte0 + ($byte1 << 8);
 }
 
 sub get_dword{
 		my ($addr,$root)  = @_;
-		my ($word0,$word1) = (&get_word($addr,$root),&get_word($addr+2,$root));
+		my ($word0,$word1) = (get_word($addr,$root),get_word($addr+2,$root));
 		return $word0 + ($word1 << 16);
 }
 
 sub get_bit{
 		my ($addr,$root,$bitloc) = @_;
-		my $byte = &get_byte($addr,$root);
+		my $byte = get_byte($addr,$root);
 		return 0x01 & ($byte >> $bitloc);
 }
 
@@ -153,7 +153,7 @@ sub show_register_info{
 		print "\t";
 
 		my $width = $config->{$addr}->{'width'};
-		my $value = &get_register_info($addr,$config);
+		my $value = get_register_info($addr,$config);
 		
 		printf "%08x",$value  if($width == 4);
 		printf "%06x",$value  if($width == 3); 
@@ -163,7 +163,7 @@ sub show_register_info{
 		print "h\n";
 
 		if($config->{$addr}->{'subField'}){
-				show_binary(&get_byte(hex $addr,\@data),1);
+				show_binary(get_byte(hex $addr,\@data),1);
 				print " \n";
 		}
 
@@ -174,10 +174,10 @@ sub get_register_info{
 
 		my $width = $config->{$addr}->{'width'};
 		
-		return &get_dword(hex $addr,\@data) if($width == 4);
-		return &get_3byte(hex $addr,\@data) if($width == 3); 
-		return &get_word(hex $addr,\@data)  if($width == 2);
-		return &get_byte(hex $addr,\@data)  if($width == 1);
+		return get_dword(hex $addr,\@data) if($width == 4);
+		return get_3byte(hex $addr,\@data) if($width == 3); 
+		return get_word(hex $addr,\@data)  if($width == 2);
+		return get_byte(hex $addr,\@data)  if($width == 1);
 
 }
 
