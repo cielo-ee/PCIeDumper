@@ -49,7 +49,7 @@ my @lines = <$fh>;
 
 close $fh or die "$!\n";
 
-my @data   = ();
+my @data;
 
 foreach my $line (@lines){
 		$line =~ s/\x0D?\x0A$//g; #改行削除
@@ -61,7 +61,7 @@ foreach my $line (@lines){
 
 my $config = LoadFile('config.yaml');
 
-my $fields = (); #Fieldオブジェクトのリファレンスの配列
+my $fields = []; #Fieldオブジェクトのリファレンスの配列へのリファレンス
 foreach my $addr (sort keys(%$config)){
 
 #		&show_register_info($addr,$config);
@@ -95,7 +95,7 @@ print "PCI Extended Capability\n";
 my $next_pointer = &get_byte(0x034,\@data);
 while(1){
 		my $id   = &get_byte($next_pointer,\@data);
-		print sprintf "Offset:%0xh ID:%0xh\n",$next_pointer,$id;
+		printf "Offset:%0xh ID:%0xh\n",$next_pointer,$id;
 		$next_pointer = &get_byte($next_pointer+1,\@data);
 #		my $tmp = <STDIN>;
 		last if $next_pointer == 0;
@@ -106,7 +106,7 @@ $next_pointer = 0x100;
 while(1){
 		my $capability   = &get_dword($next_pointer,\@data);
 		my $id = $capability & 0x00ff;
-		print sprintf "Offset:%0xh ID:%0xh \n",$id,$next_pointer;
+		printf "Offset:%0xh ID:%0xh \n",$id,$next_pointer;
 		$next_pointer = $capability >> 20;
 #		my $tmp = <STDIN>;	
 		last if $next_pointer == 0;
@@ -155,10 +155,10 @@ sub show_register_info{
 		my $width = $config->{$addr}->{'width'};
 		my $value = &get_register_info($addr,$config);
 		
-		print sprintf "%08x",$value  if($width == 4);
-		print sprintf "%06x",$value  if($width == 3); 
-		print sprintf "%04x",$value  if($width == 2);
-		print sprintf "%02x",$value  if($width == 1);
+		printf "%08x",$value  if($width == 4);
+		printf "%06x",$value  if($width == 3); 
+		printf "%04x",$value  if($width == 2);
+		printf "%02x",$value  if($width == 1);
 
 		print "h\n";
 
