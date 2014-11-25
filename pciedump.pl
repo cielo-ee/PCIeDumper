@@ -103,13 +103,13 @@ while($next_pointer){
 
 print "PCI express Capability\n";
 $next_pointer = 0x100;
-while(1){
+while($next_pointer){
 		my $capability   = &get_dword($next_pointer,\@data);
 		my $id = $capability & 0x00ff;
 		printf "Offset:%0xh ID:%0xh \n",$id,$next_pointer;
 		$next_pointer = $capability >> 20;
 #		my $tmp = <STDIN>;	
-		last if $next_pointer == 0;
+#		last if $next_pointer == 0;
 }
 
 sub get_byte{
