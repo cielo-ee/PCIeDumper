@@ -93,12 +93,12 @@ sub print_field{
 #ここからポインタを辿る
 print "PCI Extended Capability\n";
 my $next_pointer = &get_byte(0x034,\@data);
-while(1){
+while($next_pointer){
 		my $id   = &get_byte($next_pointer,\@data);
 		printf "Offset:%0xh ID:%0xh\n",$next_pointer,$id;
 		$next_pointer = &get_byte($next_pointer+1,\@data);
 #		my $tmp = <STDIN>;
-		last if $next_pointer == 0;
+#		last if $next_pointer == 0;
 }
 
 print "PCI express Capability\n";
