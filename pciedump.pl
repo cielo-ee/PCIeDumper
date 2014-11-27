@@ -64,7 +64,7 @@ my $config = LoadFile('config.yaml');
 my $fields = []; #Fieldオブジェクトのリファレンスの配列へのリファレンス
 foreach my $addr (sort keys(%$config)){
 
-#		show_register_info($addr,$config);
+		show_register_info($addr,$config);
 
 		my $value = get_register_info($addr,$config);
 		my %data = (
@@ -149,7 +149,8 @@ sub show_register_info{
 		print "\t";
 		print $config->{$addr}->{'name'};
 		print "\t";
-		print $config->{$addr}->{'attribute'};
+		my $attr =  $config->{$addr}->{'attribute'};
+		$attr && print $attr; 
 		print "\t";
 
 		my $width = $config->{$addr}->{'width'};
