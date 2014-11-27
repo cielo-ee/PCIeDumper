@@ -93,7 +93,7 @@
             default: 0
             attribute: RO
         6:
-            name: Rewerved
+            name: Reserved
             width: 1
         7:
             name: Fast_Back-to-Back_Capable

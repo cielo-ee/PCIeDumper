@@ -76,7 +76,7 @@ foreach my $addr (sort keys(%$config)){
 		push @$fields,$field_ref;
 }
 
-print Dumper $fields;
+#print Dumper $fields;
 
 
 sub print_header{
@@ -163,9 +163,30 @@ sub show_register_info{
 
 		print "h\n";
 
-		if($config->{$addr}->{'subField'}){
-				show_binary(get_byte(hex $addr,\@data),1);
+		my $subField = $config->{$addr}->{'subField'};
+		if($subField){
+				my $fieldvalue = get_byte(hex $addr,\@data);
+				show_binary($fieldvalue,1);
 				print " \n";
+				foreach my $bit (sort{$a <=> $b} keys %$subField){
+						my $bitwidth = $subField->{$bit}->{'width'};
+						my $name  = $subField->{$bit}->{'name'};
+						my $default;
+						my $attr;
+						if($name eq 'Reserved' || $name eq 'reserved'){
+								$attr = 'RO';
+								$default = 0;
+						}
+						else{
+								$attr    = $subField->{$bit}->{'attribute'};
+								$default = $subField->{$bit}->{'default'};
+								
+						}
+						
+						printf "$bit\t$name\t$bitwidth\t$default\t";
+						printf get_subvalue($fieldvalue,$bit,$bitwidth);
+						print  "\n";
+				}
 		}
 
 }
@@ -186,6 +207,16 @@ sub show_binary{
 		my ($byte,$width) = @_;
 		my $len = sprintf "B%d",$width * 8;
 		print unpack($len,pack("C",$byte));
+}
+
+#$valueという値から$bit bit目から$bitwidthの幅を取り出す
+sub get_subvalue{
+		my ($value,$bit,$bitwidth) = @_;
+		return ($value >> $bit) & (2**$bitwidth -1);
+#		1 1    1
+#		2 11   3
+#		3 111  7
+#       n      2^n -1;
 }
 
 __END__
