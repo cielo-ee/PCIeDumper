@@ -73,8 +73,69 @@
 0x06:
     name: status
     width: 2
-    subField: null
-    attribute: RO
+    subField:
+        0:
+            name: Reserved
+            width: 3
+        3:
+            name: Interrupt_List
+            width: 1
+            default: 0
+            attribute: RO
+        4:
+            name: Capabilities_List
+            width: 1
+            default: 0
+            attribute: RO
+        5:
+            name: 66MHz_Capable
+            width: 1
+            default: 0
+            attribute: RO
+        6:
+            name: Rewerved
+            width: 1
+        7:
+            name: Fast_Back-to-Back_Capable
+            width: 1
+            default: 0
+            attribute: RO
+        8:
+            name: Master_Data_Paritty_Error
+            width: 1
+            default: 0
+            attribute: RO
+        9:
+            name: DEVSEL_Timing
+            width: 2
+            default: 00
+            attribute: RO
+        11:
+            name: Signaled_Target_Abort
+            width: 1
+            default: 0
+            attribute: RO
+        12:
+            name: Received_Target_Abort
+            width: 1
+            default: 0
+            attribute: RO
+        13:
+            name: Received_Master_Abort
+            width: 1
+            default: 0
+            attribute: RO
+        14:
+            name: Signaled_System_Error
+            width: 1
+            default: 0
+            attribute: RO
+        15:
+            name: Detected_Parity_Error
+            width: 1
+            default: 0
+            attribute: RO
+    attribute: null
 0x08:
     name: Revision_ID
     width: 1
