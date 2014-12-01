@@ -59,9 +59,19 @@ foreach my $line (@lines){
 
 }
 
-my $config = LoadFile('config.yaml');
+my $common = LoadFile('config.yaml');
+
+
+my $type0  = LoadFile('type0.yaml');
+my $config;
 
 my $fields = []; #Fieldオブジェクトのリファレンスの配列へのリファレンス
+
+my $headerType = get_register_info('0x0E',$common);
+if($headerType == 0x00){
+		$config = +{%$common,%$type0};
+}
+
 foreach my $addr (sort keys(%$config)){
 
 		show_register_info($addr,$config);
@@ -167,7 +177,7 @@ sub show_register_info{
 		if($subField){
 				my $fieldvalue = get_byte(hex $addr,\@data);
 				show_binary($fieldvalue,1);
-				print " \n";
+#				print " \n";
 				foreach my $bit (sort{$a <=> $b} keys %$subField){
 						my $bitwidth = $subField->{$bit}->{'width'};
 						my $name  = $subField->{$bit}->{'name'};
