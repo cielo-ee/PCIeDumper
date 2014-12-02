@@ -101,13 +101,25 @@ sub print_field{
 }
 
 my $PCI_capability = LoadFile('PCI_Capability.yaml');
+my $IDs            = LoadFile('PCI_Capability_IDs.yaml');
+
+print Dumper $IDs;
 
 #ここからポインタを辿る
 print "PCI Extended Capability\n";
 my $next_pointer = get_byte(0x034,\@data);
 while($next_pointer){
 		my $id   = get_byte($next_pointer,\@data);
-		printf "Offset:%0xh ID:%0xh\n",$next_pointer,$id;
+		printf "Offset:%0xh ID:%0xh ",$next_pointer,$id;
+		my $cid = sprintf "0x%02x",$id;
+		my $idName = $IDs->{$cid}->{'name'};
+		if(defined $idName){
+				printf $idName;
+		}
+		else{
+				printf "Unkown"
+		}
+		printf " \n";
 		$next_pointer = get_byte($next_pointer+1,\@data);
 }
 
