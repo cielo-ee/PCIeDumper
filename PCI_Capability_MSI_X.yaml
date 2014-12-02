@@ -1,0 +1,24 @@
+---
+0x02:
+    name: Message_Control
+    width: 2
+    subField: null
+    attribute: RO
+0x04:
+    name: Message_Upper_Address
+    width: 4
+    subField: null
+    attribute: RO
+0x08:
+    name: Table_Offset_BIR
+    width:4
+    attribute: null
+    subField:
+        0:
+            name: BIR
+            width: 4
+            attribute: RO
+        4:
+            name: Table_Offset
+            width: 28
+            attribute: RO
