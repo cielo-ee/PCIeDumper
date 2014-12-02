@@ -11,7 +11,7 @@
     attribute: RO
 0x08:
     name: Table_Offset_BIR
-    width:4
+    width: 4
     attribute: null
     subField:
         0:
