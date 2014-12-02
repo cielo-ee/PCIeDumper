@@ -115,6 +115,11 @@ while($next_pointer){
 		my $idName = $IDs->{$cid}->{'name'};
 		if(defined $idName){
 				printf $idName;
+				my $capabilityFile = $IDs->{$cid}->{'file'};
+				if(defined $capabilityFile){
+						my $cap           = LoadFile($capabilityFile);
+						my $subCapability = {%$PCI_capability,%$cap};
+				}
 		}
 		else{
 				printf "Unkown"
@@ -215,14 +220,18 @@ sub show_register_info{
 
 sub get_register_info{
 		my ($addr,$config) = @_;
+		get_register_info_offset($addr,0,$config);
+}
+
+sub get_register_info_offset{
+		my ($addr,$offset,$config) = @_;
 
 		my $width = $config->{$addr}->{'width'};
 		
-		return get_dword(hex $addr,\@data) if($width == 4);
-		return get_3byte(hex $addr,\@data) if($width == 3); 
-		return get_word(hex $addr,\@data)  if($width == 2);
-		return get_byte(hex $addr,\@data)  if($width == 1);
-
+		return get_dword(hex($addr) + $offset,\@data) if($width == 4);
+		return get_3byte(hex($addr) + $offset,\@data) if($width == 3); 
+		return get_word( hex($addr) + $offset,\@data) if($width == 2);
+		return get_byte( hex($addr) + $offset,\@data) if($width == 1);
 }
 
 sub show_binary{
