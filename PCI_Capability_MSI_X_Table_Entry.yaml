@@ -1,0 +1,23 @@
+---
+0x00:
+    name: Message_Data
+    width: 4
+    attribute: null
+    subField:
+        0:
+            name: Pending_Bit
+            width: 1
+            attribute: RO
+        1:
+            name: Mask_Bit
+            width: 1
+            attribute: RW
+        2:
+            name: Message_Address
+            width: 30
+            attribute: RO
+0x02:
+    name: Message_Address
+    width: 4
+    attribute: RW
+    subField: null
