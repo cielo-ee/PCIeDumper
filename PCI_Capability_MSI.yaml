@@ -1,0 +1,32 @@
+---
+0x02:
+    name: Message_Control
+    width: 2
+    attribute: null
+    subField:
+        0:
+            name: MSI_Enable
+            width: 1
+            attribute: RW
+            default: 1
+        1:
+            name: Multiple_Message_Capable
+            width: 3
+            attribute: RO
+        4:
+            name: Multiple_Message_Enable
+            width: 3
+            attribute: RW
+            default: 1
+        7:
+            name: 64bit_address_capable
+            width: 1
+            attribute: RO
+            default: 1
+        8:
+            name: Per_vector_masking_capable
+            width: 1
+            attribute: RO
+        9:
+            name: Reserved
+            width: 7 
