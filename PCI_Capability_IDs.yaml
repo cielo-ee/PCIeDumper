@@ -1,0 +1,32 @@
+---
+0x01:
+    name: PCI_Power_Management_Interface
+0x02:
+    name: AGP
+0x03:
+    name: VPD
+0x04:
+    name: Slot_Identification
+0x05:
+    name: Message_Signaled_Interface
+    file: PCI_Capability_MSI_X.yaml
+0x06:
+    name: CompamtPCI_Hot_Swap
+0x07:
+    name: PCI-X
+0x08:
+    name: HyperTransport
+0x09:
+    name: Vendor_Specific
+0x0A:
+    name: Debug_Port
+0x0B:
+    name: CompactPCI_Central_resource_control
+0x0C:
+    name: PCI_Hot_Plug
+0x0E:
+    name: AGP_8x
+0x10:
+    name: PCI_Express
+0x11:
+    name: MSI-X
