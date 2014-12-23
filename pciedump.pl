@@ -209,7 +209,9 @@ sub show_register_info{
 								$default = $subField->{$bit}->{'default'};
 								
 						}
-						
+						if(!defined $default){
+								$default = '-';
+						}
 						printf "$bit\t$name\t$bitwidth\t$default\t";
 						printf get_subvalue($fieldvalue,$bit,$bitwidth);
 						print  "\n";
