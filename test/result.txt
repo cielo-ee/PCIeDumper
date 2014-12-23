@@ -1,0 +1,106 @@
+0x00	Vendor_ID	RO	1814h
+0x02	Device_ID	RO	3090h
+0x04	command		0007h
+000001110	IO_Space	1	0	1
+1	Memory_Space_Accesses	1	0	1
+2	Bus_Master	1	0	1
+3	Special_Cycles	1	0	0
+4	emory_write_and_Invalidate_enable	1	0	0
+5	GA_Palette_Snoop	1	0	0
+6	Parity_Error_Response	1	0	0
+7	Reserved	1	0	0
+8	SERR_N_enable	1	0	0
+9	Fast_Back_to_Back_Enable	1	0	0
+10	Interrupt_Disable	1	0	0
+11	Reserved	5	0	0
+0x06	status		0010h
+000100000	Reserved	3	0	0
+3	Interrupt_List	1	0	0
+4	Capabilities_List	1	0	1
+5	66MHz_Capable	1	0	0
+6	Reserved	1	0	0
+7	Fast_Back-to-Back_Capable	1	0	0
+8	Master_Data_Paritty_Error	1	0	0
+9	DEVSEL_Timing	2	00	0
+11	Signaled_Target_Abort	1	0	0
+12	Received_Target_Abort	1	0	0
+13	Received_Master_Abort	1	0	0
+14	Signaled_System_Error	1	0	0
+15	Detected_Parity_Error	1	0	0
+0x07	Class_Code	RO	000000h
+0x08	Revision_ID	RO	00h
+0x0C	Cacheline_size	RO	10h
+0x0D	Latency_Timer	RO	00h
+0x0E	Header_Type	RO	00h
+000000000	type	6	-	0
+7	function	1	-	0
+0x0F	BIST	RO	00h
+0x10	BAR0	RO	90000000h
+0x14	BAR1	RO	00000000h
+0x18	BAR2	RO	00000000h
+0x1C	BAR3	RO	00000000h
+0x20	BAR5	RO	00000000h
+0x28	Cardbus_CIS_Pointer	RO	00000000h
+0x2C	Subsystem_Vendor_ID	RO	17aah
+0x2E	Subsystem_ID	RO	f101h
+0x30	Expansion_ROM_Base_Address	RO	00000000h
+0x34	Capability_Pointer	RO	40h
+0x3C	Interrupt_Line	RO	03h
+0x3D	Interrupt_Pin	RO	01h
+0x3E	Min_Gnt	RO	00h
+0x3F	Max_Lat	RO	00h
+$VAR1 = {
+          '0x10' => {
+                      'name' => 'PCI_Express'
+                    },
+          '0x0C' => {
+                      'name' => 'PCI_Hot_Plug'
+                    },
+          '0x08' => {
+                      'name' => 'HyperTransport'
+                    },
+          '0x04' => {
+                      'name' => 'Slot_Identification'
+                    },
+          '0x0A' => {
+                      'name' => 'Debug_Port'
+                    },
+          '0x0B' => {
+                      'name' => 'CompactPCI_Central_resource_control'
+                    },
+          '0x03' => {
+                      'name' => 'VPD'
+                    },
+          '0x05' => {
+                      'file' => 'PCI_Capability_MSI_X.yaml',
+                      'name' => 'Message_Signaled_Interface'
+                    },
+          '0x09' => {
+                      'name' => 'Vendor_Specific'
+                    },
+          '0x02' => {
+                      'name' => 'AGP'
+                    },
+          '0x06' => {
+                      'name' => 'CompamtPCI_Hot_Swap'
+                    },
+          '0x07' => {
+                      'name' => 'PCI-X'
+                    },
+          '0x11' => {
+                      'name' => 'MSI-X'
+                    },
+          '0x01' => {
+                      'name' => 'PCI_Power_Management_Interface'
+                    },
+          '0x0E' => {
+                      'name' => 'AGP_8x'
+                    }
+        };
+PCI Extended Capability
+Offset:40h ID:1h PCI_Power_Management_Interface 
+Offset:50h ID:5h Message_Signaled_Interface 
+Offset:70h ID:10h PCI_Express 
+PCI express Capability
+Offset:1h ID:100h 
+Offset:3h ID:140h 
