@@ -159,7 +159,21 @@
 0x0E:
     name: Header_Type
     width: 1
-    subField: null
+    subField:
+        0:
+            name: type
+            width: 6
+            value :
+                0x00: Type0
+                0x01: Type1
+                0x02: Type2
+                others: reserved
+         7:
+            name: function
+            width: 1
+            value:
+                0b : single
+                1b : multi
     attribute: RO
 0x0F:
     name: BIST
