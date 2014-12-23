@@ -168,7 +168,7 @@
                 0x01: Type1
                 0x02: Type2
                 others: reserved
-         7:
+        7:
             name: function
             width: 1
             value:
